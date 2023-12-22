@@ -1,3 +1,6 @@
+# before running code setup python environment and install these libraries using below given commands. 
+#pip install cryptography
+#pip nstall pillow
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
@@ -29,8 +32,8 @@ def process_image(image_path):
 
 
 def generate_key(password):
-    password = password.encode()  # Convert to type bytes
-    salt = b'salt_'  # CHANGE THIS - recommend using a key from os.urandom(16), must be of type bytes
+    password = password.encode() 
+    salt = b'salt_'  
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
@@ -38,15 +41,15 @@ def generate_key(password):
         iterations=100000,
         backend=default_backend()
     )
-    key = base64.urlsafe_b64encode(kdf.derive(password))  # Can only use kdf once
+    key = base64.urlsafe_b64encode(kdf.derive(password)) 
     return key
 
 
-# Step 5: Integrate Everything
 def main():
     print("This is an image encryption tool. Where you can encrypt and decrypt those encrypted images. Only you have "
           "to do is to remember that password you used to encrypt your data.")
     x = input("Enter 1 for encryption and 2 for decryption: ")
+    
     if x == "1":
         password = input("Enter a password: ")
         image_path = input("Input image path (Relative path): ")
@@ -56,6 +59,7 @@ def main():
         with open('encrypted_image.png', 'wb') as encrypted_file:
             encrypted_file.write(encrypted_image)
         print("Image encrypted and saved as 'encrypted_image.png'.")
+        
     elif x == "2":
         password = input("Enter the password used for encryption: ")
         image_path = input("Input the path of the encrypted image (Relative path): ")
@@ -66,10 +70,10 @@ def main():
         with Image.open(io.BytesIO(decrypted_image)) as img:
             img.show()
         print("Image decrypted and displayed.")
+        
     else:
         print("Invalid input. Please enter either '1' for encryption or '2' for decryption.")
 
 
-# Step 6: Run the Script
 if __name__ == "__main__":
     main()
