@@ -1,6 +1,6 @@
 # before running code setup python environment and install these libraries using below given commands. 
 #pip install cryptography
-#pip nstall pillow
+#pip install pillow
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
